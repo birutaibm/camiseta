@@ -1,0 +1,33 @@
+#page {
+  display: flex;
+}
+
+#camiseta {
+  margin: 0;
+  background-image: url("img/camiseta.png");
+  background-repeat: no-repeat;
+  width: 487px;
+  height: 575px;
+}
+
+#conteudo {
+  position: absolute;
+  left: 110px;
+  top: 84px;
+  width: 280px;
+  height: 450px;
+}
+
+#conteudo:hover {
+  border: 2px dashed aqua;
+}
+
+#image {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  position: absolute;
+  top: auto;
+  left: auto;
+}

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="style.css">
+  <title>Editor de camiseta</title>
+</head>
+<body>
+  <div id="page">
+    <div id="camiseta">
+      <div id="conteudo">
+        <img id="image" src="img/bom_dia.jpg" alt="selecione a imagem">
+      </div>
+    </div>
+    <div id="config">
+      <ul>
+        <li onclick="javascript:loadImage('297')">297</li>
+        <li onclick="javascript:loadImage('300')">300</li>
+        <li onclick="javascript:loadImage('bom_dia')">bom dia</li>
+      </ul>
+    </div>
+  </div>
+  <script>
+    function loadImage(name) {
+      var elmnt = document.getElementById("image");
+      elmnt.src = "img/"+name+".jpg";
+      elmnt.style.left = "0px";
+      elmnt.style.top = "0px";
+    }
+  </script>
+  <script>
+    dragElement(document.getElementById("image"));
+
+    function dragElement(elmnt) {
+      var xEnd, yEnd, xBegin, yBegin, w, h;
+      elmnt.onmousedown = dragMouseDown;
+
+      function dragMouseDown(e) {
+        e = e || window.event;
+        e.preventDefault();
+        w = 280 - elmnt.width;
+        h = 450 - elmnt.height;
+        console.log(w, h);
+        // get the mouse cursor position at startup:
+        xBegin = e.clientX;
+        yBegin = e.clientY;
+        document.onmouseup = closeDragElement;
+        // call a function whenever the cursor moves:
+        document.onmousemove = elementDrag;
+      }
+
+      function elementDrag(e) {
+        e = e || window.event;
+        e.preventDefault();
+        // calculate the new cursor position:
+        xEnd = xBegin - e.clientX;
+        yEnd = yBegin - e.clientY;
+        // set the element's new position:
+        if (setTop(yEnd)) {
+          yBegin = e.clientY;
+        }
+        if (setLeft(xEnd)) {
+          xBegin = e.clientX;
+        }
+      }
+
+      function setLeft(x) {
+        var left = elmnt.offsetLeft - x;
+        if ((0 < left) && (left < w)) {
+          elmnt.style.left = left + "px";
+          return true;
+        } else {
+          return false;
+        }
+      }
+
+      function setTop(y) {
+        var top = elmnt.offsetTop - y;
+        if ((0 < top) && (top < h)) {
+          elmnt.style.top = top + "px";
+          return true;
+        } else {
+          return false;
+        }
+      }
+
+      function closeDragElement() {
+        // stop moving when mouse button is released:
+        document.onmouseup = null;
+        document.onmousemove = null;
+      }
+    }
+  </script>
+</body>
+</html>
